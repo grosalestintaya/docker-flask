@@ -6,13 +6,14 @@ from Forms.form1 import NamerForm
 contacts = Blueprint("contacts", __name__)
 
 
-@contacts.route('/')
+@contacts.route('/addnewuser')
 def index():
     contacts = Contact.query.all()
+    db.session.close()
     return render_template('index.html', contacts=contacts)
 
 
-@contacts.route('/face')
+@contacts.route('/')
 def face():
     frist_name = 'Julio'
     stuff = 'This is bold text'
@@ -38,6 +39,7 @@ def add_contact():
         # save the object into the database
         db.session.add(new_contact)
         db.session.commit()
+        db.session.close()
 
         flash('Contact added successfully!')
 
@@ -56,6 +58,7 @@ def update(id):
         contact.phone = request.form['phone']
 
         db.session.commit()
+        db.session.close()
 
         flash('Contact updated successfully!')
 
@@ -69,7 +72,7 @@ def delete(id):
     contact = Contact.query.get(id)
     db.session.delete(contact)
     db.session.commit()
-
+    db.session.close()
     flash('Contact deleted successfully!')
 
     return redirect(url_for('contacts.index'))
@@ -85,7 +88,7 @@ def new_user(id):
     contact = Contact.query.get(id)
     db.session.delete(contact)
     db.session.commit()
-
+    db.session.close()
     flash('Contact deleted successfully!')
 
     return redirect(url_for('contacts.index'))
