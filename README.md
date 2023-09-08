@@ -13,7 +13,7 @@ MYSQL_PORT=
 ```
 
 ```
-git clone https://github.com/FaztWeb/flask-sqlalchemy-crud
+git clone https://github.com/grosalestintaya/docker-flask
 cd flask-sqlalchemy-crud
 pip install -r requirements.txt
 python index.py
